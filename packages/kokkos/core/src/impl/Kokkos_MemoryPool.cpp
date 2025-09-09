@@ -44,6 +44,7 @@
 
 #include <impl/Kokkos_Error.hpp>
 
+#include <cstdint>
 #include <ostream>
 #include <sstream>
 
