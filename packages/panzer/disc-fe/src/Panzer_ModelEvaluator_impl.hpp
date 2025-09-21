@@ -2478,7 +2478,7 @@ createScalarParameter(const Teuchos::Array<std::string> & in_names,
   // build initial condition vector
   paramObj->space =
     Thyra::locallyReplicatedDefaultSpmdVectorSpace<Scalar>(
-      rcp(new Teuchos::MpiComm<long int>(lof_->getComm().getRawMpiComm())),paramObj->names->size());
+      rcp(new Teuchos::MpiComm<long long int>(lof_->getComm().getRawMpiComm())),paramObj->names->size());
 
   // fill vector with parameter values
   Teuchos::ArrayRCP<Scalar> data;
