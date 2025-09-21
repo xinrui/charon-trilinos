@@ -55,6 +55,7 @@
 #ifdef HAVE_MPI
 #include <mpi.h>
 #ifdef _WIN32
+#define NOMINMAX
 #include <winsock2.h>
 #else
 #include <netdb.h>

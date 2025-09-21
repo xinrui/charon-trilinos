@@ -347,7 +347,7 @@ namespace MueLu {
 
       DenseVector workArray(14*(aggSize+1), false);
 
-      LO (*ptr2func)(MT*, MT*, MT*);
+      LO (*ptr2func)(const MT*, const MT*, const MT*);
       ptr2func = NULL;
       LO* bwork = NULL;
       MT* vl = NULL;
