@@ -40,6 +40,7 @@ IF (TPL_ENABLE_MPI)
     INSTALLABLE
     )
     target_compile_definitions(pepu PUBLIC SEACAS_HAVE_MPI)
+    target_link_libraries(pepu PUBLIC MPI::MPI_C)
 ENDIF()
 ENDIF()
 
