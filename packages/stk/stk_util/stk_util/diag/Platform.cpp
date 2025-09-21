@@ -40,7 +40,11 @@
 #include "stk_util/util/FeatureTest.hpp"     // for SIERRA_HEAP_INFO, SIERRA_MEMORY_INFO
 #include "stk_util/util/Writer.hpp"          // for operator<<, Writer, dendl
 #include "stk_util/util/Writer_fwd.hpp"      // for LOG_MEMORY
+
+#if defined(__linux__)
 #include <pwd.h>                             // for getpwuid, passwd
+#endif
+
 #include <unistd.h>                          // for access, getdomainname, geteuid, gethostname
 #include <cstdlib>                           // for getenv
 #include <cstring>                           // for strlen
@@ -70,7 +74,7 @@
   #include <sys/time.h>
   #include <sys/resource.h>
   #include <netdb.h>
-#else
+#elif defined(__linux__)
   #include <sys/utsname.h>                     // for uname, utsname
   #include <sys/time.h>
   #include <netdb.h>
@@ -169,6 +173,8 @@ get_memory_info(
 
 #endif // defined(SIERRA_MEMORY_INFO)
 }
+
+#ifdef __linux__
 
 std::string
 hostname()
@@ -294,7 +300,7 @@ path_read_access(
 {
   return path_access(name, R_OK);
 }
-
+#endif // __linux__
 } // namespace Env
 } // namespace sierra
 
