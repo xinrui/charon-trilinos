@@ -67,6 +67,10 @@
 #include <Xpetra_TpetraRowMatrix.hpp>
 #include <Xpetra_CrsGraph.hpp>
 
+#ifdef _MSC_VER
+#include <basetsd.h>
+#endif
+
 namespace Zoltan2{
 
 // Default local ordinal

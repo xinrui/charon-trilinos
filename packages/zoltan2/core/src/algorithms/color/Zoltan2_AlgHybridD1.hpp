@@ -1,6 +1,7 @@
 #ifndef _ZOLTAN2_ALGHYBRIDD1_HPP_
 #define _ZOLTAN2_ALGHYBRIDD1_HPP_
 
+#include <chrono>
 #include <vector>
 #include <unordered_map>
 #include <iostream>
@@ -56,9 +57,8 @@ class AlgDistance1 : public Algorithm<Adapter>
     using host_exec = typename femv_t::host_view_type::device_type::execution_space;
     using host_mem = typename femv_t::host_view_type::device_type::memory_space;
     double timer() {
-      struct timeval tp;
-      gettimeofday(&tp, NULL);
-      return ((double) (tp.tv_sec) + 1e-6 * tp.tv_usec);
+      auto now = std::chrono::steady_clock::now().time_since_epoch();
+      return std::chrono::duration<double>(now).count();
     }
     
   private:

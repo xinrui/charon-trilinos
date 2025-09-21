@@ -1,6 +1,7 @@
 #ifndef _ZOLTAN2_2GHOSTLAYER_HPP_
 #define _ZOLTAN2_2GHOSTLAYER_HPP_
 
+#include <chrono>
 #include <vector>
 #include <unordered_map>
 #include <iostream>
@@ -57,9 +58,8 @@ class AlgTwoGhostLayer : public Algorithm<Adapter> {
     using host_mem = typename femv_t::host_view_type::device_type::memory_space;
 
     double timer(){
-      struct timeval tp;
-      gettimeofday(&tp, NULL);
-      return ((double) (tp.tv_sec) + 1e-6 * tp.tv_usec);
+      auto now = std::chrono::steady_clock::now().time_since_epoch();
+      return std::chrono::duration<double>(now).count();
     }
   private:
     
