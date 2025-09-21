@@ -46,7 +46,7 @@ namespace mesh {
 
 struct EntityKey
 {
-  enum entity_key_t {
+  enum entity_key_t : unsigned long long {
       RANK_SHIFT = 56ULL
     , MIN_ID = 0ULL
     , MAX_ID = (1ULL << RANK_SHIFT) - 1ULL

@@ -47,7 +47,7 @@ namespace mesh{
 
 struct Entity
 {
-    enum Entity_t {
+    enum Entity_t : unsigned int {
 #ifdef STK_32BIT_ENTITY
         InvalidEntity = 0u,
         MinEntity = 1u,
