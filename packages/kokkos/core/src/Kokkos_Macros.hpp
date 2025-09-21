@@ -193,7 +193,7 @@
       __NVCOMPILER_PATCHLEVEL__
 #endif
 
-#if defined(_MSC_VER) && !defined(KOKKOS_COMPILER_INTEL)
+#if defined(_MSC_VER)
 #define KOKKOS_COMPILER_MSVC _MSC_VER
 #endif
 
