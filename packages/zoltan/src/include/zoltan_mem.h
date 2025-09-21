@@ -50,6 +50,8 @@
 
 #include <string.h>
 
+#define __STDC__ 1
+
 #ifdef __cplusplus
 /* if C++, define the rest of this header file as extern C */
 extern "C" {

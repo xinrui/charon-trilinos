@@ -56,6 +56,8 @@ extern "C" {
 #include "zoltan_mem.h"
 #include "zoltan_util.h"
 
+#define __STDC__ 1
+
 #ifdef __STDC__
 #include <stdarg.h>
 #else
