@@ -80,6 +80,8 @@ format_time(
 
 namespace Env {
 
+#if defined __linux__
+
 double
 wall_now()
 {
@@ -377,7 +379,7 @@ void set_mpi_communicator(MPI_Comm communicator)
     env_data.m_parallelRank = stk::parallel_machine_rank(communicator);
   }
 }
-
+#endif
 } // namespace Env
 } // namespace sierra
 

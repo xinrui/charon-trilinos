@@ -33,6 +33,7 @@
 // 
 
 #include "stk_util/environment/CPUTime.hpp"
+#ifdef __linux__
 #include <sys/resource.h>  // for rusage, getrusage, RUSAGE_SELF
 #include <sys/time.h>      // for timeval
 
@@ -53,3 +54,5 @@ cpu_time()
 }
 
 } // namespace stk
+
+#endif

@@ -33,6 +33,7 @@
 // 
 
 #include "stk_util/environment/WallTime.hpp"
+#if defined __linux__
 #include <sys/time.h>  // for gettimeofday, timeval, timezone
 
 namespace stk {
@@ -64,3 +65,4 @@ wall_dtime(double &t)
 }
 
 } // namespace stk
+#endif
