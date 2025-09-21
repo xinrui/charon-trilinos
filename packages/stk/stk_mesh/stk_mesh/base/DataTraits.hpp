@@ -41,6 +41,8 @@
 #include <string>                       // for string
 #include <typeinfo>                     // for type_info
 #include <vector>                       // for vector
+
+#define NOMINMAX
 namespace stk { class CommBuffer; }
 namespace stk { namespace mesh { class DataTraits; } }
 
