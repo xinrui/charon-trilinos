@@ -38,6 +38,11 @@
 #include <setjmp.h>  // for sigjmp_buf
 #include <string>    // for string
 
+#if _WIN32
+#define sigjmp_buf jmp_buf
+#define siglongjmp longjmp
+#define SIGBUS -1
+#endif
 
 /**
  * Signal handling is enabled via the <b>activate_signals()</b> function.  The

@@ -43,6 +43,8 @@
 #include <utility>                     // for pair
 #include <vector>                      // for vector, vector<>::const_iterator
 
+#if defined __linux__
+
 extern "C" {
   static void signal_handler(int signal, siginfo_t *sip, void *ucp)
   {
@@ -242,3 +244,5 @@ SignalHandler::remove_all_handlers()
 
 
 } // namespace sierra
+
+#endif

@@ -33,35 +33,33 @@
 //
 
 #include <stk_util/util/FieldDataAllocator.hpp>
-#include <sys/mman.h>  // for mmap, munmap, MAP_ANON, MAP_FAILED, MAP_PRIVATE, PROT_READ, PROT_W...
+#include <windows.h>
+// #include <sys/mman.h>  // for mmap, munmap, MAP_ANON, MAP_FAILED, MAP_PRIVATE, PROT_READ, PROT_W...
 
 namespace stk {
 namespace impl {
 
-int get_mmap_flags()
-{
-  return MAP_PRIVATE | MAP_ANON;
-}
-
-int get_mmap_protection()
-{
-  return PROT_READ | PROT_WRITE;
-}
-
 void* page_aligned_allocate_impl(size_t num_bytes)
 {
-  void * ptr = mmap(nullptr, num_bytes, get_mmap_protection(), get_mmap_flags(), -1 /*file descriptor*/, 0 /*offset*/);
+  // VirtualAlloc 会自动按页面对齐
+    void* ptr = VirtualAlloc(
+        nullptr,                // 系统决定地址
+        num_bytes,              // 分配大小
+        MEM_COMMIT | MEM_RESERVE, // 先保留再提交
+        PAGE_READWRITE          // 读写权限
+    );
 
-  if (ptr == MAP_FAILED) {
-    throw std::bad_alloc();
-  }
+    if (!ptr) {
+        throw std::bad_alloc();
+    }
 
-  return ptr;
+    return ptr;
 }
 
 void page_aligned_deallocate_impl(void * ptr, size_t num_bytes)
 {
-  munmap(ptr,num_bytes);
+    (void)num_bytes; // Windows 的 VirtualFree 不需要大小
+    VirtualFree(ptr, 0, MEM_RELEASE);
 }
 
 }

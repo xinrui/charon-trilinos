@@ -105,7 +105,9 @@
 #  define SIERRA_USER_SHUTDOWN_SIGNAL SIGUSR1
 
 #else // Unknown platform
+#if not defined(_MSC_VER)
 #  warning Could not determine platform/operating system
+#endif
 #endif
 
 // Compiler/runtime specific features and bugs
@@ -134,7 +136,9 @@
 #elif defined(__GNUC__)				// GNU compiler, do this last since *every* compiler thinks its gcc
 
 #else // Unknown compiler
+#if not defined(_MSC_VER)
 #  warning Could not determine compiler/runtime
+#endif
 #endif
 
 ///

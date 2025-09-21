@@ -46,6 +46,20 @@
 
 #include "Kokkos_Core.hpp"
 
+#if defined(_WIN32)
+#define NOMINMAX
+#pragma push_macro("DIFFERENCE")
+#pragma push_macro("CONST")
+
+#undef DIFFERENCE
+#undef CONST
+
+#include <windows.h>
+
+#pragma pop_macro("CONST")
+#pragma pop_macro("DIFFERENCE")
+#endif
+
 namespace stk {
 
 namespace impl {
@@ -158,7 +172,21 @@ private:
 
   static size_t get_half_page_size()
   {
-    return sysconf( _SC_PAGE_SIZE ) >> 1;
+    std::size_t page_size = 0;
+
+#if defined(_WIN32)
+    SYSTEM_INFO si;
+    GetSystemInfo(&si);
+    page_size = si.dwPageSize;
+#else
+    long sz = sysconf(_SC_PAGESIZE);
+    if (sz <= 0) {
+        sz = 4096; // fallback: 常见默认页大小
+    }
+    page_size = static_cast<std::size_t>(sz);
+#endif
+
+    return page_size >> 1;
   }
 };
 
