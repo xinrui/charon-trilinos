@@ -97,7 +97,7 @@
 
 #else /* Define az_fcd for all other machines */
 
-#define az_fcd char * 
+#define az_fcd const char * 
 #define PREFIX
 
 #ifdef TRILINOS_NO_CONFIG_H

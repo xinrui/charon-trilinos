@@ -301,10 +301,10 @@ double az_d_sign(doublereal * a, doublereal * b) {
   double sqrt(doublereal);
   /* Local variables */
   static doublereal b, t, s1, s2, eps, tmp;
-  extern doublereal DDOT_F77(integer *, doublereal *, integer *, doublereal *, 
-    integer *);
+  extern doublereal DDOT_F77(const integer *, const doublereal *, const integer *, const doublereal *, 
+    const integer *);
   static doublereal sine, test, zeta1, zeta2, alpha, norma;
-  extern doublereal DLAMCH_F77(char *, ftnlen);
+  extern doublereal DLAMCH_F77(const char *);
   static doublereal absgam, absalp, cosine, absest;
 
 
@@ -395,7 +395,7 @@ double az_d_sign(doublereal * a, doublereal * b) {
   --x;
 
   /* Function Body */
-  eps = DLAMCH_F77("Epsilon", (ftnlen)7);
+  eps = DLAMCH_F77("Epsilon");
   alpha = DDOT_F77(j, &x[1], &c__1, &w[1], &c__1);
 
   absalp = abs(alpha);
@@ -761,9 +761,9 @@ double az_r_sign(real * a, real * b) {
 
   /* Local variables */
   static real b, t, s1, s2, eps, tmp, sine;
-  extern doublereal SDOT_F77(integer *, real *, integer *, real *, integer *);
+  extern float SDOT_F77(const integer *, const float *, const integer *, const float *, const integer *);
   static real test, zeta1, zeta2, alpha, norma, absgam, absalp;
-  extern doublereal SLAMCH_F77(char *, ftnlen);
+  extern float SLAMCH_F77(const char *);
   static real cosine, absest;
 
 
@@ -854,7 +854,7 @@ double az_r_sign(real * a, real * b) {
   --x;
 
   /* Function Body */
-  eps = SLAMCH_F77("Epsilon", (ftnlen)7);
+  eps = SLAMCH_F77("Epsilon");
   alpha = SDOT_F77(j, &x[1], &c__1, &w[1], &c__1);
 
   absalp = dabs(alpha);

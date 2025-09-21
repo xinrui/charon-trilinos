@@ -602,6 +602,10 @@ extern void AZ_fortransolve(double x[], double b[], int options[],
  * In this section we take all of this into account.
 
  */
+#ifdef FORTRAN_DISABLED
+typedef int integer;
+typedef double doublereal;
+#endif
 
 #ifndef FORTRAN_DISABLED
 #   define AZ_FNROOT_F77                 F77_FUNC_(az_fnroot,AZ_FNROOT)
@@ -611,6 +615,10 @@ extern void AZ_fortransolve(double x[], double b[], int options[],
 #   define AZ_FNROOT_F77                 az_fnroot_c
 #   define MC64AD_F77                    mc64ad_c
 #   define AZ_RCM_F77                    az_rcm_c
+extern int az_fnroot_c(integer *root, integer *xadj, integer *
+	adjncy, integer *mask, integer *nlvl, integer *xls, integer *ls);
+extern int az_rcm_c(integer *root, integer *xadj, integer *adjncy, 
+	integer *mask, integer *perm, integer *ccsize, integer *deg);
 #endif /* ndef FORTRAN_DISABLED */
 
 #ifndef FORTRAN_DISABLED
@@ -629,6 +637,12 @@ extern void AZ_fortransolve(double x[], double b[], int options[],
 
 #define AZ_DLASWP_F77  az_dlaswp_c
 #define AZ_DLAIC1_F77  az_dlaic1_c
+extern int az_dlaswp_c(integer *n, doublereal *a, integer *lda, 
+	integer *k1, integer *k2, integer *ipiv, integer *incx);
+  
+extern int az_dlaic1_c(integer *job, integer *j, doublereal *x, 
+	doublereal *sest, doublereal *w, doublereal *gamma, doublereal *
+	sestpr, doublereal *s, doublereal *c__);
 
 #endif /* ndef FORTRAN_DISABLED */
 

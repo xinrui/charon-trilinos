@@ -73,17 +73,17 @@ extern "C" {
 
 
   /* Double precision LAPACK linear solvers */
-void PREFIX DGETRF_F77(int* m, int* n, double* a, int* lda, int* ipiv, int* info); 
-void PREFIX DGETRS_F77(az_fcd, int* n, int* nrhs, double* a,
-                       int* lda, int*ipiv, double*x , int* ldx, int* info);
-void PREFIX DGETRI_F77(int* n, double* a, int* lda, int*ipiv, double * work , int* lwork, int* info);
-void PREFIX DPOTRF_F77(az_fcd, int* n, double* a, int* lda, int* info);
-void PREFIX DSTEBZ_F77(az_fcd, az_fcd, int *, double *, double *, int *, int *,
-		       double *, double *, double *, int *, int *, double *, int *,
+void PREFIX DGETRF_F77(const int* m, const int* n, double* a, const int* lda, int* ipiv, int* info); 
+void PREFIX DGETRS_F77(az_fcd, const int* n, const int* nrhs, const double* a,
+                       const int* lda, const int*ipiv, double*x , const int* ldx, int* info);
+void PREFIX DGETRI_F77(const int* n, double* a, const int* lda, const int*ipiv, double * work , const int* lwork, int* info);
+void PREFIX DPOTRF_F77(az_fcd, const int* n, double* a, const int* lda, int* info);
+void PREFIX DSTEBZ_F77(az_fcd, az_fcd, const int *, const double *, const double *, const int *, const int *,
+		       const double *, const double *, const double *, int *, int *, double *, int *,
 		       int *, double *, int *, int *);
-void PREFIX DGEEV_F77(az_fcd, az_fcd, int *, double *, int *, double *,
-		      double *, double *, int *, double *, int *,
-		      double *, int *, int *);
+void PREFIX DGEEV_F77(az_fcd, az_fcd, const int *, double *, const int *, double *,
+		      double *, double *, const int *, double *, const int *,
+		      double *, const int *, int *);
 
   /* Single precision LAPACK linear solvers*/
 void PREFIX SGETRF_F77(int* m, int* n, float* a, int* lda, int* ipiv, int* info); 
@@ -105,7 +105,7 @@ void PREFIX SGEEV_F77(az_fcd, az_fcd, int *, float *, int *, float *,
 
 #endif /* _AZ_LAPACK_WRAPPERS_H_ */
 
-void PREFIX DGETRS_F77(az_fcd, int* n, int* nrhs, double* a,
-                       int* lda, int*ipiv, double*x , int* ldx, int* info);
+void PREFIX DGETRS_F77(az_fcd, const int* n, const int* nrhs, const double* a,
+                       const int* lda, const int*ipiv, double*x , const int* ldx, int* info);
 void PREFIX SGETRS_F77(az_fcd, int* m, int* n, float* a,
                        int* lda, int*ipiv, float*x , int* ldx, int* info);

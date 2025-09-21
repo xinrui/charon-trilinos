@@ -94,7 +94,7 @@ int ilaenv_wrapper(
 #if defined (INTEL_CXML)
     return ILAENV_F77(ispec, name, name_length, opts, opts_length, N1, N2, N3, N4 );
 #else
-    return ILAENV_F77(ispec, name, opts, N1, N2, N3, N4, name_length, opts_length );
+    return ILAENV_F77(ispec, name, opts, N1, N2, N3, N4);
 #endif
 }
 
@@ -312,7 +312,7 @@ namespace Teuchos
   { STRTRS_F77(CHAR_MACRO(UPLO), CHAR_MACRO(TRANS), CHAR_MACRO(DIAG), &n, &nrhs, A, &lda, B, &ldb, info); }
 
 
-  void LAPACK<int,float>::TRTRI(const char& UPLO, const char& DIAG, const int& n, const float* A, const int& lda, int* info) const
+  void LAPACK<int,float>::TRTRI(const char& UPLO, const char& DIAG, const int& n, float* A, const int& lda, int* info) const
   { STRTRI_F77(CHAR_MACRO(UPLO), CHAR_MACRO(DIAG), &n, A, &lda, info); }
 
 
@@ -348,13 +348,13 @@ namespace Teuchos
   { SHSEQR_F77(CHAR_MACRO(JOB), CHAR_MACRO(COMPZ), &n, &ilo, &ihi, H, &ldh, WR, WI, Z, &ldz, WORK, &lwork, info); }
 
 
-  void LAPACK<int, float>::GEES(const char& JOBVS, const char& SORT, int (*ptr2func)(float*, float*), const int& n, float* A, const int& lda, int* sdim, float* WR, float* WI, float* VS, const int& ldvs, float* WORK, const int& lwork, int* BWORK, int* info) const
+  void LAPACK<int, float>::GEES(const char& JOBVS, const char& SORT, int (*ptr2func)(const float*, const float*), const int& n, float* A, const int& lda, int* sdim, float* WR, float* WI, float* VS, const int& ldvs, float* WORK, const int& lwork, int* BWORK, int* info) const
   { SGEES_F77(CHAR_MACRO(JOBVS), CHAR_MACRO(SORT), ptr2func, &n, A, &lda, sdim, WR, WI, VS, &ldvs, WORK, &lwork, BWORK, info); }
 
 
   void LAPACK<int, float>::GEES(const char& JOBVS, const int& n, float* A, const int& lda, int* sdim, float* WR, float* WI, float* VS, const int& ldvs, float* WORK, const int& lwork, float* /* RWORK */, int* BWORK, int* info) const
   {
-    int (*nullfptr)(float*,float*) = NULL;
+    int (*nullfptr)(const float*, const float*) = NULL;
     const char sort = 'N';
     SGEES_F77(CHAR_MACRO(JOBVS), CHAR_MACRO(sort), nullfptr, &n, A, &lda, sdim, WR, WI, VS, &ldvs, WORK, &lwork, BWORK, info);
   }
@@ -397,7 +397,7 @@ namespace Teuchos
   { STGSEN_F77(&ijob, &wantq, &wantz, SELECT, &n, A, &lda, B, &ldb, ALPHAR, ALPHAI, BETA, Q, &ldq, Z, &ldz, M, PL, PR, DIF, WORK, &lwork, IWORK, &liwork, info); }
 
 
-  void LAPACK<int, float>::GGES(const char& JOBVL, const char& JOBVR, const char& SORT, int (*ptr2func)(float* , float* , float* ), const int& n, float* A, const int& lda, float* B, const int& ldb, int* sdim, float* ALPHAR, float* ALPHAI, float* BETA, float* VL, const int& ldvl, float* VR, const int& ldvr, float* WORK, const int& lwork, int* BWORK, int* info ) const
+  void LAPACK<int, float>::GGES(const char& JOBVL, const char& JOBVR, const char& SORT, int (*ptr2func)(const float* , const float* , const float* ), const int& n, float* A, const int& lda, float* B, const int& ldb, int* sdim, float* ALPHAR, float* ALPHAI, float* BETA, float* VL, const int& ldvl, float* VR, const int& ldvr, float* WORK, const int& lwork, int* BWORK, int* info ) const
   { SGGES_F77(CHAR_MACRO(JOBVL), CHAR_MACRO(JOBVR), CHAR_MACRO(SORT), ptr2func, &n, A, &lda, B, &ldb, sdim, ALPHAR, ALPHAI, BETA, VL, &ldvl, VR, &ldvr, WORK, &lwork, BWORK, info); }
 
 
@@ -712,7 +712,7 @@ namespace Teuchos
   { DTRTRS_F77(CHAR_MACRO(UPLO), CHAR_MACRO(TRANS), CHAR_MACRO(DIAG), &n, &nrhs, A, &lda, B, &ldb, info); }
 
 
-  void LAPACK<int,double>::TRTRI(const char& UPLO, const char& DIAG, const int& n, const double* A, const int& lda, int* info) const
+  void LAPACK<int,double>::TRTRI(const char& UPLO, const char& DIAG, const int& n, double* A, const int& lda, int* info) const
   { DTRTRI_F77(CHAR_MACRO(UPLO), CHAR_MACRO(DIAG), &n, A, &lda, info); }
 
 
@@ -758,7 +758,7 @@ namespace Teuchos
   }
 
 
-  void LAPACK<int, double>::GEES(const char& JOBVS, const char& SORT, int (*ptr2func)(double*, double*), const int& n, double* A, const int& lda, int* sdim, double* WR, double* WI, double* VS, const int& ldvs, double* WORK, const int& lwork, int* BWORK, int* info) const
+  void LAPACK<int, double>::GEES(const char& JOBVS, const char& SORT, int (*ptr2func)(const double*, const double*), const int& n, double* A, const int& lda, int* sdim, double* WR, double* WI, double* VS, const int& ldvs, double* WORK, const int& lwork, int* BWORK, int* info) const
   {
     DGEES_F77(CHAR_MACRO(JOBVS), CHAR_MACRO(SORT), ptr2func, &n, A, &lda, sdim, WR, WI, VS, &ldvs, WORK, &lwork, BWORK, info);
   }
@@ -766,8 +766,8 @@ namespace Teuchos
 
   void LAPACK<int, double>::GEES(const char& JOBVS, const int& n, double* A, const int& lda, int* sdim, double* WR, double* WI, double* VS, const int& ldvs, double* WORK, const int& lwork, double* /* RWORK */, int* BWORK, int* info) const
   {
-    //int (*nullfptr)(double*,double*) = NULL;
-    gees_nullfptr_t nullfptr = 0;
+    int (*nullfptr)(const double*, const double*) = NULL;
+    // gees_nullfptr_t nullfptr = 0;
     const char sort = 'N';
     DGEES_F77(CHAR_MACRO(JOBVS), CHAR_MACRO(sort), nullfptr, &n, A, &lda, sdim, WR, WI, VS, &ldvs, WORK, &lwork, BWORK, info);
   }
@@ -818,7 +818,7 @@ namespace Teuchos
   { DTGSEN_F77(&ijob, &wantq, &wantz, SELECT, &n, A, &lda, B, &ldb, ALPHAR, ALPHAI, BETA, Q, &ldq, Z, &ldz, M, PL, PR, DIF, WORK, &lwork, IWORK, &liwork, info); }
 
 
-  void LAPACK<int, double>::GGES(const char& JOBVL, const char& JOBVR, const char& SORT, int (*ptr2func)(double* , double* , double* ), const int& n, double* A, const int& lda, double* B, const int& ldb, int* sdim, double* ALPHAR, double* ALPHAI, double* BETA, double* VL, const int& ldvl, double* VR, const int& ldvr, double* WORK, const int& lwork, int* BWORK, int* info ) const
+  void LAPACK<int, double>::GGES(const char& JOBVL, const char& JOBVR, const char& SORT, int (*ptr2func)(const double* , const double* , const double* ), const int& n, double* A, const int& lda, double* B, const int& ldb, int* sdim, double* ALPHAR, double* ALPHAI, double* BETA, double* VL, const int& ldvl, double* VR, const int& ldvr, double* WORK, const int& lwork, int* BWORK, int* info ) const
   { DGGES_F77(CHAR_MACRO(JOBVL), CHAR_MACRO(JOBVR), CHAR_MACRO(SORT), ptr2func, &n, A, &lda, B, &ldb, sdim, ALPHAR, ALPHAI, BETA, VL, &ldvl, VR, &ldvr, WORK, &lwork, BWORK, info); }
 
 

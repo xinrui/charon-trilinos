@@ -48,7 +48,7 @@ else()
   set(F77_BLAS_MANGLE_DEFAULT "UNDEFINED")
 endif()
 if(WIN32 AND NOT CYGWIN)
-  set(F77_BLAS_MANGLE_DEFAULT "${F77_FUNC}")
+  set(F77_BLAS_MANGLE_DEFAULT "(name,NAME) name")
 endif()
 
 

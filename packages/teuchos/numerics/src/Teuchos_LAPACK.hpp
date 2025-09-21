@@ -303,7 +303,7 @@ namespace Teuchos
     void TRTRS(const char& UPLO, const char& TRANS, const char& DIAG, const OrdinalType& n, const OrdinalType& nrhs, const ScalarType* A, const OrdinalType& lda, ScalarType* B, const OrdinalType& ldb, OrdinalType* info) const;
 
     //! Computes the inverse of an upper or lower triangular matrix \c A.
-    void TRTRI(const char& UPLO, const char& DIAG, const OrdinalType& n, const ScalarType* A, const OrdinalType& lda, OrdinalType* info) const;
+    void TRTRI(const char& UPLO, const char& DIAG, const OrdinalType& n, ScalarType* A, const OrdinalType& lda, OrdinalType* info) const;
     //@}
 
     //! @name Symmetric Eigenproblem Routines
@@ -400,7 +400,7 @@ namespace Teuchos
     /*! Computes for a pair of \c n by \c n nonsymmetric matrices (\c A,\c B) the generalized eigenvalues, the generalized real Schur form (\c S,\c T), optionally, the left and/or right matrices of Schur vectors.
        \note (This is the function is only defined for \c ScalarType = \c float or \c double.)
     */
-    void GGES(const char& JOBVL, const char& JOBVR, const char& SORT, OrdinalType& (*ptr2func)(ScalarType* , ScalarType* , ScalarType* ), const OrdinalType& n, ScalarType* A, const OrdinalType& lda, ScalarType* B, const OrdinalType& ldb, OrdinalType* sdim, MagnitudeType *ALPHAR, MagnitudeType *ALPHAI, MagnitudeType *BETA, ScalarType* VL, const OrdinalType& ldvl, ScalarType* VR, const OrdinalType& ldvr, ScalarType* WORK, const OrdinalType& lwork, OrdinalType* BWORK, OrdinalType* info ) const;
+    void GGES(const char& JOBVL, const char& JOBVR, const char& SORT, OrdinalType& (*ptr2func)(const ScalarType* ,const ScalarType* , const ScalarType* ), const OrdinalType& n, ScalarType* A, const OrdinalType& lda, ScalarType* B, const OrdinalType& ldb, OrdinalType* sdim, MagnitudeType *ALPHAR, MagnitudeType *ALPHAI, MagnitudeType *BETA, ScalarType* VL, const OrdinalType& ldvl, ScalarType* VR, const OrdinalType& ldvr, ScalarType* WORK, const OrdinalType& lwork, OrdinalType* BWORK, OrdinalType* info ) const;
 
     //@}
 
@@ -1135,7 +1135,7 @@ namespace Teuchos
   }
 
   template<typename OrdinalType, typename ScalarType>
-  void LAPACK<OrdinalType,ScalarType>::TRTRI(const char& UPLO, const char& DIAG, const OrdinalType& n, const ScalarType* A, const OrdinalType& lda, OrdinalType* info) const
+  void LAPACK<OrdinalType,ScalarType>::TRTRI(const char& UPLO, const char& DIAG, const OrdinalType& n, ScalarType* A, const OrdinalType& lda, OrdinalType* info) const
   {
     UndefinedLAPACKRoutine<ScalarType>::notDefined();
   }
@@ -1252,7 +1252,7 @@ namespace Teuchos
 
 
   template<typename OrdinalType, typename ScalarType>
-  void LAPACK<OrdinalType, ScalarType>::GGES(const char& JOBVL, const char& JOBVR, const char& SORT, OrdinalType& (*ptr2func)(ScalarType*, ScalarType*, ScalarType*), const OrdinalType& n, ScalarType* A, const OrdinalType& lda, ScalarType* B, const OrdinalType& ldb, OrdinalType* sdim, MagnitudeType* ALPHAR, MagnitudeType* ALPHAI, MagnitudeType* BETA, ScalarType* VL, const OrdinalType& ldvl, ScalarType* VR, const OrdinalType& ldvr, ScalarType* WORK, const OrdinalType& lwork, OrdinalType* BWORK, OrdinalType* info ) const
+  void LAPACK<OrdinalType, ScalarType>::GGES(const char& JOBVL, const char& JOBVR, const char& SORT, OrdinalType& (*ptr2func)(const ScalarType*, const ScalarType*, const ScalarType*), const OrdinalType& n, ScalarType* A, const OrdinalType& lda, ScalarType* B, const OrdinalType& ldb, OrdinalType* sdim, MagnitudeType* ALPHAR, MagnitudeType* ALPHAI, MagnitudeType* BETA, ScalarType* VL, const OrdinalType& ldvl, ScalarType* VR, const OrdinalType& ldvr, ScalarType* WORK, const OrdinalType& lwork, OrdinalType* BWORK, OrdinalType* info ) const
   {
     UndefinedLAPACKRoutine<ScalarType>::notDefined();
   }
@@ -1467,7 +1467,7 @@ namespace Teuchos
     void SYTRD(const char& UPLO, const int& n, float* A, const int& lda, float* D, float* E, float* TAU, float* WORK, const int& lwork, int* info) const;
     void GEHRD(const int& n, const int& ilo, const int& ihi, float* A, const int& lda, float* TAU, float* WORK, const int& lwork, int* info) const;
     void TRTRS(const char& UPLO, const char& TRANS, const char& DIAG, const int& n, const int& nrhs, const float* A, const int& lda, float* B, const int& ldb, int* info) const;
-    void TRTRI(const char& UPLO, const char& DIAG, const int& n, const float* A, const int& lda, int* info) const;
+    void TRTRI(const char& UPLO, const char& DIAG, const int& n, float* A, const int& lda, int* info) const;
 
     // Symmetric eigenvalue routines.
     void STEQR(const char& COMPZ, const int& n, float* D, float* E, float* Z, const int& ldz, float* WORK, int* info) const;
@@ -1480,7 +1480,7 @@ namespace Teuchos
 
     // Non-Hermitian eigenvalue routines.
     void HSEQR(const char& JOB, const char& COMPZ, const int& n, const int& ilo, const int& ihi, float* H, const int& ldh, float* WR, float* WI, float* Z, const int& ldz, float* WORK, const int& lwork, int* info) const;
-    void GEES(const char& JOBVS, const char& SORT, int (*ptr2func)(float*, float*), const int& n, float* A, const int& lda, int* sdim, float* WR, float* WI, float* VS, const int& ldvs, float* WORK, const int& lwork, int* BWORK, int* info) const;
+    void GEES(const char& JOBVS, const char& SORT, int (*ptr2func)(const float*, const float*), const int& n, float* A, const int& lda, int* sdim, float* WR, float* WI, float* VS, const int& ldvs, float* WORK, const int& lwork, int* BWORK, int* info) const;
     void GEES(const char& JOBVS, const int& n, float* A, const int& lda, int* sdim, float* WR, float* WI, float* VS, const int& ldvs, float* WORK, const int& lwork, float* RWORK, int* BWORK, int* info) const;
 
     void GEEV(const char& JOBVL, const char& JOBVR, const int& n, float* A, const int& lda, float* WR, float* WI, float* VL, const int& ldvl, float* VR, const int& ldvr, float* WORK, const int& lwork, int* info) const;
@@ -1492,7 +1492,7 @@ namespace Teuchos
     void GGEV(const char& JOBVL, const char& JOBVR, const int& n, float* A, const int& lda, float* B, const int& ldb, float* ALPHAR, float* ALPHAI, float* BETA, float* VL, const int& ldvl, float* VR, const int& ldvr, float* WORK, const int& lwork, int* info) const;
     void TRSEN(const char& JOB, const char& COMPQ, const int* SELECT, const int& n, float* T, const int& ldt, float* Q, const int& ldq, float* WR, float* WI, int* M, float* S, float* SEP, float* WORK, const int& lwork, int* IWORK, const int& liwork, int* info ) const;
     void TGSEN(const int& ijob, const int& wantq, const int& wantz, const int* SELECT, const int& n, float* A, const int& lda, float* B, const int& ldb, float* ALPHAR, float* ALPHAI, float* BETA, float* Q, const int& ldq, float* Z, const int& ldz, int* M, float* PL, float* PR, float* DIF, float* WORK, const int& lwork, int* IWORK, const int& liwork, int* info ) const;
-    void GGES(const char& JOBVL, const char& JOBVR, const char& SORT, int (*ptr2func)(float*, float*, float*), const int& n, float* A, const int& lda, float* B, const int& ldb, int* sdim, float* ALPHAR, float* ALPHAI, float* BETA, float* VL, const int& ldvl, float* VR, const int& ldvr, float* WORK, const int& lwork, int* bwork, int* info ) const;
+    void GGES(const char& JOBVL, const char& JOBVR, const char& SORT, int (*ptr2func)(const float*, const float*, const float*), const int& n, float* A, const int& lda, float* B, const int& ldb, int* sdim, float* ALPHAR, float* ALPHAI, float* BETA, float* VL, const int& ldvl, float* VR, const int& ldvr, float* WORK, const int& lwork, int* bwork, int* info ) const;
 
     // SVD routine
     void GESVD(const char& JOBU, const char& JOBVT, const int& m, const int& n, float* A, const int& lda, float* S, float* U, const int& ldu, float* V, const int& ldv, float* WORK, const int& lwork, float* RWORK, int* info) const;
@@ -1614,7 +1614,7 @@ namespace Teuchos
     void SYTRD(const char& UPLO, const int& n, double* A, const int& lda, double* D, double* E, double* TAU, double* WORK, const int& lwork, int* info) const;
     void GEHRD(const int& n, const int& ilo, const int& ihi, double* A, const int& lda, double* TAU, double* WORK, const int& lwork, int* info) const;
     void TRTRS(const char& UPLO, const char& TRANS, const char& DIAG, const int& n, const int& nrhs, const double* A, const int& lda, double* B, const int& ldb, int* info) const;
-    void TRTRI(const char& UPLO, const char& DIAG, const int& n, const double* A, const int& lda, int* info) const;
+    void TRTRI(const char& UPLO, const char& DIAG, const int& n, double* A, const int& lda, int* info) const;
 
     // Symmetric eigenproblem routines.
     void STEQR(const char& COMPZ, const int& n, double* D, double* E, double* Z, const int& ldz, double* WORK, int* info) const;
@@ -1627,7 +1627,7 @@ namespace Teuchos
 
     // Non-Hermitian eigenproblem routines.
     void HSEQR(const char& JOB, const char& COMPZ, const int& n, const int& ilo, const int& ihi, double* H, const int& ldh, double* WR, double* WI, double* Z, const int& ldz, double* WORK, const int& lwork, int* info) const;
-    void GEES(const char& JOBVS, const char& SORT, int (*ptr2func)(double*, double*), const int& n, double* A, const int& lda, int* sdim, double* WR, double* WI, double* VS, const int& ldvs, double* WORK, const int& lwork, int* BWORK, int* info) const;
+    void GEES(const char& JOBVS, const char& SORT, int (*ptr2func)(const double*, const double*), const int& n, double* A, const int& lda, int* sdim, double* WR, double* WI, double* VS, const int& ldvs, double* WORK, const int& lwork, int* BWORK, int* info) const;
     void GEES(const char& JOBVS, const int& n, double* A, const int& lda, int* sdim, double* WR, double* WI, double* VS, const int& ldvs, double* WORK, const int& lwork, double* RWORK, int* BWORK, int* info) const;
 
     void GEEV(const char& JOBVL, const char& JOBVR, const int& n, double* A, const int& lda, double* WR, double* WI, double* VL, const int& ldvl, double* VR, const int& ldvr, double* WORK, const int& lwork, int* info) const;
@@ -1639,7 +1639,7 @@ namespace Teuchos
     void GGEV(const char& JOBVL, const char& JOBVR, const int& n, double* A, const int& lda, double* B, const int& ldb, double* ALPHAR, double* ALPHAI, double* BETA, double* VL, const int& ldvl, double* VR, const int& ldvr, double* WORK, const int& lwork, int* info) const;
     void TRSEN(const char& JOB, const char& COMPQ, const int* SELECT, const int& n, double* T, const int& ldt, double* Q, const int& ldq, double* WR, double* WI, int* M, double* S, double* SEP, double* WORK, const int& lwork, int* IWORK, const int& liwork, int* info ) const;
     void TGSEN(const int& ijob, const int& wantq, const int& wantz, const int* SELECT, const int& n, double* A, const int& lda, double* B, const int& ldb, double* ALPHAR, double* ALPHAI, double* BETA, double* Q, const int& ldq, double* Z, const int& ldz, int* M, double* PL, double* PR, double* DIF, double* WORK, const int& lwork, int* IWORK, const int& liwork, int* info ) const;
-    void GGES(const char& JOBVL, const char& JOBVR, const char& SORT, int (*ptr2func)(double*, double*, double*), const int& n, double* A, const int& lda, double* B, const int& ldb, int* sdim, double* ALPHAR, double* ALPHAI, double* BETA, double* VL, const int& ldvl, double* VR, const int& ldvr, double* WORK, const int& lwork, int* bwork, int* info ) const;
+    void GGES(const char& JOBVL, const char& JOBVR, const char& SORT, int (*ptr2func)(const double*, const double*, const double*), const int& n, double* A, const int& lda, double* B, const int& ldb, int* sdim, double* ALPHAR, double* ALPHAI, double* BETA, double* VL, const int& ldvl, double* VR, const int& ldvr, double* WORK, const int& lwork, int* bwork, int* info ) const;
 
 
     // SVD routine

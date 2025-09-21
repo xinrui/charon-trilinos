@@ -82,35 +82,35 @@ extern "C" {
 #endif
 
 /* Double precision BLAS 1 */
-double PREFIX DASUM_F77(int* n, double x[], int* incx);
-void PREFIX DAXPY_F77(int* n, double* alpha, double x[], int* incx, double y[], int* incy);
-void PREFIX DCOPY_F77(int* n, double *x, int* incx, double *y, int* incy);
-double PREFIX DDOT_F77(int* n, double x[], int* incx, double y[], int* incy);
-void PREFIX DSCAL_F77(int* n, double* alpha, double *x, int* incx);
-int PREFIX IDAMAX_F77(int* n, double *x, int* incx);
+double PREFIX DASUM_F77(const int* n, const double x[], const int* incx);
+void PREFIX DAXPY_F77(const int* n, const double* alpha, const double  x[], const int* incx, double y[], const int* incy);
+void PREFIX DCOPY_F77(const int* n, const double *x, const int* incx, double *y, const int* incy);
+double PREFIX DDOT_F77(const int* n, const double x[], const int* incx, const double y[], const int* incy);
+void PREFIX DSCAL_F77(const int* n, const double* alpha, double *x, const int* incx);
+int PREFIX IDAMAX_F77(const int* n, const double *x, const int* incx);
 
 
 /* Double precision BLAS 2 */
-void PREFIX DGEMV_F77(az_fcd, int* m, int* n, double* alpha, double A[], int* lda,
-		       double x[], int* incx, double* beta, double y[], int* incy);
+void PREFIX DGEMV_F77(az_fcd, const int* m, const int* n, const double* alpha, const double A[], const int* lda,
+		       const double x[], const int* incx, const double* beta, double y[], const int* incy);
 
 /* Double precision BLAS 3 */
-void PREFIX DGEMM_F77(az_fcd, az_fcd, int *m, int *
-		      n, int *k, double *alpha, double *a, int *lda, 
-		      double *b, int *ldb, double *beta, double *c, int *ldc);
+void PREFIX DGEMM_F77(az_fcd, az_fcd, const int *m, const int *
+		      n, const int *k, const double *alpha, const double *a, const int *lda, 
+		      const double *b, const int *ldb, const double *beta, double *c, const int *ldc);
 void PREFIX DTRMM_F77(az_fcd, az_fcd, az_fcd, az_fcd, 
-		      int *m, int *n, double *alpha, double *a, int * lda, double *b, int *ldb);
+		      const int *m, const int *n, const double *alpha, const double *a, const int * lda, double *b, const int *ldb);
 void PREFIX DTRSM_F77(az_fcd, az_fcd, az_fcd, az_fcd, 
-		      int *m, int *n, double *alpha, double *a, int *
-		      lda, double *b, int *ldb);
+		      const int *m, const int *n, const double *alpha, const double *a, const int *
+		      lda, double *b, const int *ldb);
 
 /* Single precision BLAS 1 */
 float PREFIX SASUM_F77(int* n, float x[], int* incx);
 void PREFIX SAXPY_F77(int* n, float* alpha, float x[], int* incx, float y[], int* incy);
 void PREFIX SCOPY_F77(int* n, float *x, int* incx, float *y, int* incy);
 float PREFIX SDOT_F77(int* n, float x[], int* incx, float y[], int* incy);
-void PREFIX DSCAL_F77(int* n, double* alpha, double *x, int* incx);
-int PREFIX IDAMAX_F77(int* n, double *x, int* incx);
+void PREFIX DSCAL_F77(const int* n, const double* alpha, double *x, const int* incx);
+int PREFIX IDAMAX_F77(const int* n, const double *x, const int* incx);
 
 /* Single precision BLAS 2 */
 void PREFIX SGEMV_F77(az_fcd, int* m, int* n, float* alpha, float A[], int* lda,

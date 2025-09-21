@@ -1,4 +1,5 @@
 /* src/AztecOO_config.h.in.  Generated from configure.ac by autoheader.  */
+#include <mkl.h>
 
 /* Define the Fortran name mangling to be used for the BLAS */
 #ifndef F77_BLAS_MANGLE

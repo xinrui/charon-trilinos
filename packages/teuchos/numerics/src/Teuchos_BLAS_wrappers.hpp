@@ -168,7 +168,7 @@ extern "C" {
 
 /* Double precision BLAS 1 */
 void PREFIX DROTG_F77(double* da, double* db, double* c, double* s);
-void PREFIX DROT_F77(const int* n, double* dx, const int* incx, double* dy, const int* incy, double* c, double* s);
+void PREFIX DROT_F77(const int* n, double* dx, const int* incx, double* dy, const int* incy, const double* c, const double* s);
 double PREFIX DASUM_F77(const int* n, const double x[], const int* incx);
 void PREFIX DAXPY_F77(const int* n, const double* alpha, const double x[], const int* incx, double y[], const int* incy);
 void PREFIX DCOPY_F77(const int* n, const double *x, const int* incx, double *y, const int* incy);
@@ -226,7 +226,7 @@ float PREFIX SNRM2_F77(const int* n, const float x[], const int* incx);
 #  endif // which blasfloat
 #endif // ifdef blasfloat
 void PREFIX SROTG_F77(float* da, float* db, float* c, float* s);
-void PREFIX SROT_F77(const int* n, float* dx, const int* incx, float* dy, const int* incy, float* c, float* s);
+void PREFIX SROT_F77(const int* n, float* dx, const int* incx, float* dy, const int* incy, const float* c, const float* s);
 void PREFIX SAXPY_F77(const int* n, const float* alpha, const float x[], const int* incx, float y[], const int* incy);
 void PREFIX SCOPY_F77(const int* n, const float *x, const int* incx, float *y, const int* incy);
 void PREFIX SSCAL_F77(const int* n, const float* alpha, float *x, const int* incx);
