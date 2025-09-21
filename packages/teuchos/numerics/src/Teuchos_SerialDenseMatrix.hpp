@@ -394,10 +394,14 @@ protected:
                  const OrdinalType numCols)
   {
     const size_t size = size_t(numRows) * size_t(numCols);
+#ifdef __GNUC__
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wvla"
+#endif
     return new ScalarType[size];
+#ifdef __GNUC__
 #pragma GCC diagnostic pop
+#endif
   }
 
   OrdinalType numRows_ = 0;
