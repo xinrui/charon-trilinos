@@ -1,0 +1,20 @@
+{
+    "version": 6, 
+    "configurePresets": [
+        {
+            "name": "default",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "Trilinos_ENABLE_Phalanx": true, 
+                "Trilinos_ENABLE_ALL_PACKAGES": false,
+                "Trilinos_ENABLE_TESTS": true,
+                "Trilinos_ENABLE_EXAMPLES": true,
+                "BUILD_SHARED_LIBS": false,
+                "TPL_BLAS_LIBRARIES": "C:/Program Files (x86)/Intel/oneAPI/mkl/latest/lib/mkl_intel_lp64_dll.lib;C:/Program Files (x86)/Intel/oneAPI/compiler/latest/lib/libiomp5md.lib;C:/Program Files (x86)/Intel/oneAPI/mkl/latest/lib/mkl_intel_thread_dll.lib;C:/Program Files (x86)/Intel/oneAPI/mkl/latest/lib/mkl_core_dll.lib",
+                "TPL_LAPACK_LIBRARIES": "C:/Program Files (x86)/Intel/oneAPI/mkl/latest/lib/mkl_intel_lp64_dll.lib;C:/Program Files (x86)/Intel/oneAPI/compiler/latest/lib/libiomp5md.lib;C:/Program Files (x86)/Intel/oneAPI/mkl/latest/lib/mkl_intel_thread_dll.lib;C:/Program Files (x86)/Intel/oneAPI/mkl/latest/lib/mkl_core_dll.lib"
+            }
+        }
+    ]
+}

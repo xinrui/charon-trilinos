@@ -1,10 +1,42 @@
-TRIBITS_INCLUDE_DIRECTORIES(REQUIRED_DURING_INSTALLATION_TESTING 
-                            ${CMAKE_CURRENT_SOURCE_DIR})
-  
-INCLUDE_DIRECTORIES(REQUIRED_DURING_INSTALLATION_TESTING 
-                    ${CMAKE_CURRENT_SOURCE_DIR}/evaluators)
+cmake_minimum_required(VERSION 3.10)
+project(FiniteElementAssemblyExample)
 
-SET(example_fem_SOURCES
+# 添加头文件搜索路径
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/evaluators
+    ${CMAKE_CURRENT_SOURCE_DIR}/auxiliary_tests
+    ${CMAKE_BINARY_DIR}/packages/kokkos
+    ${CMAKE_SOURCE_DIR}/packages/kokkos/containers/src
+    ${CMAKE_BINARY_DIR}/packages/kokkos/core/src
+    ${CMAKE_SOURCE_DIR}/packages/kokkos/core/src
+    ${CMAKE_SOURCE_DIR}/packages/kokkos/tpls/desul/include
+    ${CMAKE_SOURCE_DIR}/packages/kokkos/tpls/mdspan/include
+    ${CMAKE_BINARY_DIR}/packages/kokkos-kernels
+    ${CMAKE_BINARY_DIR}/packages/kokkos-kernels/src
+    ${CMAKE_SOURCE_DIR}/packages/kokkos-kernels/src
+    ${CMAKE_SOURCE_DIR}/packages/kokkos-kernels/src/common
+    ${CMAKE_SOURCE_DIR}/packages/kokkos-kernels/src/sparse
+    ${CMAKE_BINARY_DIR}/packages/phalanx/src
+    ${CMAKE_SOURCE_DIR}/packages/phalanx/src
+    ${CMAKE_BINARY_DIR}/packages/sacado/src
+    ${CMAKE_SOURCE_DIR}/packages/sacado/src
+    ${CMAKE_SOURCE_DIR}/packages/sacado/src/mpl
+    ${CMAKE_SOURCE_DIR}/packages/sacado/src/new_design
+    ${CMAKE_SOURCE_DIR}/packages/teuchos/comm/src
+    ${CMAKE_BINARY_DIR}/packages/teuchos/core/src
+    ${CMAKE_SOURCE_DIR}/packages/teuchos/core/src
+    ${CMAKE_SOURCE_DIR}/packages/teuchos/numerics/src
+    ${CMAKE_BINARY_DIR}/packages/teuchos/kokkoscomm/src
+    ${CMAKE_SOURCE_DIR}/packages/teuchos/kokkoscomm/src
+    ${CMAKE_BINARY_DIR}/packages/teuchos/kokkoscompat/src
+    ${CMAKE_SOURCE_DIR}/packages/teuchos/kokkoscompat/src
+    ${CMAKE_BINARY_DIR}/packages/teuchos/parameterlist/src
+    ${CMAKE_SOURCE_DIR}/packages/teuchos/parameterlist/src
+)
+
+# 主例子源文件列表
+set(example_fem_SOURCES
     MyTraits.hpp
     ExplicitTemplateInstantiation.hpp
     Dimension.hpp
@@ -39,51 +71,26 @@ SET(example_fem_SOURCES
     evaluators/ScatterResidual.hpp
     evaluators/ScatterResidual_Def.hpp
     evaluators/ScatterResidual.cpp
-    )
+)
 
-# new implementation
-TRIBITS_ADD_EXECUTABLE_AND_TEST(
-  example_finite_element_assembly
-  SOURCES FiniteElementAssembly.cpp ${example_fem_SOURCES}
-  COMM serial mpi
-  NUM_MPI_PROCS 1
-  )
+# 编译主例子可执行文件
+add_executable(example_finite_element_assembly FiniteElementAssembly.cpp ${example_fem_SOURCES})
 
-#TRIBITS_ADD_EXECUTABLE_AND_TEST(
-#  example_fem_nonlinear_Jv_timings
-#  SOURCES Example_FEM_Nonlinear_Jv_Timings.cpp 
-#          ${example_fem_nonlinear_SOURCES}
-#  COMM serial mpi
-#  PASS_REGULAR_EXPRESSION "Run has completed successfully!"
-#  )
-
-TRIBITS_INCLUDE_DIRECTORIES(REQUIRED_DURING_INSTALLATION_TESTING 
-                            ${CMAKE_CURRENT_SOURCE_DIR}/auxiliary_tests)
-  
-SET(example_element_linear_2D_SOURCES
+# 辅助测试源文件列表
+set(example_element_linear_2D_SOURCES
     Mesh.hpp
     Mesh.cpp
     Workset.hpp
     WorksetBuilder.hpp
-    )
-  
-TRIBITS_ADD_EXECUTABLE_AND_TEST(
-  example_mesh_aux_test
-  SOURCES auxiliary_tests/Example_FEM_Mesh_AuxTest.cpp ${example_element_linear_2D_SOURCES} ${PHALANX_UNIT_TEST_MAIN}
-  COMM serial mpi
-  NUM_MPI_PROCS 1
-  )
-  
-TRIBITS_ADD_EXECUTABLE_AND_TEST(
-  example_workset_aux_test
-  SOURCES     auxiliary_tests/Example_FEM_Workset_AuxTest.cpp ${example_element_linear_2D_SOURCES} ${PHALANX_UNIT_TEST_MAIN}
-  COMM serial mpi
-  NUM_MPI_PROCS 1
-  )
+)
 
-TRIBITS_ADD_EXECUTABLE_AND_TEST(
-  example_lof_aux_test
-  SOURCES     auxiliary_tests/Example_FEM_LinearObjectFactory_AuxTest.cpp ${example_element_linear_2D_SOURCES} ${PHALANX_UNIT_TEST_MAIN}
-  COMM serial mpi
-  NUM_MPI_PROCS 1
-  )
+# 编译辅助测试可执行文件
+#add_executable(example_mesh_aux_test auxiliary_tests/Example_FEM_Mesh_AuxTest.cpp ${example_element_linear_2D_SOURCES})
+#add_executable(example_workset_aux_test auxiliary_tests/Example_FEM_Workset_AuxTest.cpp ${example_element_linear_2D_SOURCES})
+#add_executable(example_lof_aux_test auxiliary_tests/Example_FEM_LinearObjectFactory_AuxTest.cpp ${example_element_linear_2D_SOURCES})
+
+# 如有需要，可以在此处添加链接库
+target_link_libraries(example_finite_element_assembly phalanx kokkoscore kokkoskernels sacado)
+#target_link_libraries(example_mesh_aux_test phalanx kokkos kokkoskernels sacado )
+#target_link_libraries(example_workset_aux_test phalanx kokkos kokkoskernels sacado)
+#target_link_libraries(example_lof_aux_test phalanx kokkos kokkoskernels sacado)
