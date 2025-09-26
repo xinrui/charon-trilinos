@@ -1,2 +1,0 @@
-ADD_SUBDIRECTORY(00_Basic_Problem)
-ADD_SUBDIRECTORY(01_Utilize_Thyra)
